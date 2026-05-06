@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Admin — Quranic Youth Camp</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/admin.css"/>
+</head>
+<body>
+
+  <div class="hdr">
+    <div class="icon-strip">🌙 ☪️ 📖 ✨ 🕌</div>
+    <h1>Quranic <span>Youth Camp</span></h1>
+    <p>Admin Dashboard</p>
+    <div class="hdr-badge">🔐 Organiser access only</div>
+  </div>
+
+  <nav class="nav">
+    <a class="nav-btn" href="register.html">📝 Register</a>
+    <a class="nav-btn active" href="admin.html">🔐 Admin</a>
+    <a class="nav-btn" href="checkin.html">✅ Check-in</a>
+  </nav>
+
+  <div class="main">
+
+    <!-- LOGIN GATE -->
+    <div id="admin-gate">
+      <div class="admin-gate">
+        <div class="lock-icon">🔐</div>
+        <h2>Admin only</h2>
+        <p>Enter the admin password to manage registrations.</p>
+        <div class="field">
+          <input type="password" id="pw-input" placeholder="Password" onkeydown="if(event.key==='Enter')checkPw()"/>
+        </div>
+        <br/>
+        <button class="btn btn-primary" onclick="checkPw()">Login →</button>
+        <p id="pw-error">❌ Wrong password.</p>
+      </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="admin-panel" style="display:none">
+      <div class="topbar">
+        <span><span class="live-dot"></span>Live dashboard</span>
+        <div style="display:flex;gap:8px">
+          <button class="export-btn" onclick="exportCSV()">⬇️ Export CSV</button>
+          <button class="btn-logout" onclick="adminLogout()">Logout</button>
+        </div>
+      </div>
+
+      <div class="settings-panel">
+        <h4>⚙️ Event Settings</h4>
+        <div class="s-row"><label>UPI ID</label><input type="text" id="set-upi" placeholder="yourname@upi"/></div>
+        <div class="s-row"><label>Amount (₹)</label><input type="number" id="set-amount" placeholder="e.g. 500"/></div>
+        <div class="s-row"><label>WhatsApp link</label><input type="text" id="set-walink" placeholder="https://chat.whatsapp.com/..."/></div>
+        <div class="s-row"><label></label><button class="btn-save" onclick="saveSettings()">💾 Save</button></div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat"><div class="stat-num green" id="st-total">—</div><div class="stat-label">Total</div></div>
+        <div class="stat"><div class="stat-num yellow" id="st-pending">—</div><div class="stat-label">Pending</div></div>
+        <div class="stat"><div class="stat-num green" id="st-approved">—</div><div class="stat-label">Approved</div></div>
+      </div>
+
+      <input class="search-bar" type="text" id="search-inp" placeholder="🔍 Search by name or school…" oninput="filterRegs(this.value)"/>
+      <div class="card" id="reg-list">
+        <div class="empty-state"><span class="spinner"></span> Loading…</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- MODAL -->
+  <div class="overlay" id="modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Registration Details</h3>
+        <button class="modal-close" onclick="closeModal()">×</button>
+      </div>
+      <div id="modal-body"></div>
+      <div class="modal-actions" id="modal-actions"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script type="module" src="js/firebase.js"></script>
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>
