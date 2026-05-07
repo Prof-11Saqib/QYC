@@ -122,7 +122,7 @@ window.saveSettings = async function () {
 function startLiveListener() {
   if (unsubRegs) { unsubRegs(); unsubRegs = null; }
   unsubRegs = onValue(ref(db, "registrations"), snap => {
-    console.log("🔥 snapshot received, count:", snap.size);
+    console.log("🔥 snapshot received, count:", snap.numChildren());
     allRegs = [];
     if (snap.exists()) {
       snap.forEach(child => allRegs.push({ fbKey: child.key, ...child.val() }));
@@ -142,8 +142,10 @@ function updateStats() {
 }
 
 // ── Render list ───────────────────────────────
-function initials(n) {
-  return n.split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2);
+function initials(n="") {
+  return n
+  .split(" ")
+  .map(w=> w[0] || "").join("").toUpperCase().slice(0,2);
 }
 function ago(ts) {
   const d = Date.now() - ts;
@@ -163,8 +165,8 @@ function renderRegs(list) {
     <div class="reg-item">
       <div class="reg-av">${initials(r.cname)}</div>
       <div class="reg-info">
-        <div class="reg-name">${r.cname}, ${r.age}</div>
-        <div class="reg-sub">${r.pname} · ${r.phone} · ${ago(r.ts)}</div>
+        <div class="reg-name">${r.cname || "Unknown"}, ${r.age || "—"}</div>
+        <div class="reg-sub">${r.pname || "Unknown"} · ${r.phone || "—"} · ${ago(r.ts)}</div>
       </div>
       <span class="badge badge-${r.status}">${r.status}</span>
       <div style="display:flex;gap:5px">
@@ -180,9 +182,9 @@ function renderRegs(list) {
 function filterList(q) {
   const l = q.toLowerCase();
   return allRegs.filter(r =>
-    r.cname.toLowerCase().includes(l) ||
-    r.pname.toLowerCase().includes(l) ||
-    r.school.toLowerCase().includes(l)
+    (r.cname || "").toLowerCase().includes(l)||
+    (r.pname || "").toLowerCase().includes(l) ||
+    (r.school || "").toLowerCase().includes(l)
   );
 }
 window.filterRegs = q => renderRegs(q ? filterList(q) : allRegs);
