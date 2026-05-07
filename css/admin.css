@@ -1,0 +1,137 @@
+/* ============================================
+   admin.css — Styles for admin.html only
+   ============================================ */
+
+/* ── GATE ── */
+.admin-gate { text-align: center; padding: 3rem 1rem; }
+.admin-gate .lock-icon { font-size: 48px; margin-bottom: 1rem; }
+.admin-gate h2 { font-size: 20px; font-weight: 700; color: #e6edf3; margin-bottom: 6px; }
+.admin-gate p { font-size: 13px; color: #6e7681; margin-bottom: 1.5rem; }
+
+/* ── TOPBAR ── */
+.topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+.topbar span { font-size: 13px; color: #6e7681; }
+.btn-logout {
+  padding: 5px 14px; font-size: 12px; border-radius: 7px;
+  border: 1px solid #30363d; background: transparent; color: #8b949e; cursor: pointer; font-weight: 600;
+}
+.btn-logout:hover { background: #1c2128; }
+
+/* ── SETTINGS ── */
+.settings-panel {
+  background: rgba(210,153,34,.05);
+  border: 1px solid rgba(210,153,34,.2);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+}
+.settings-panel h4 {
+  font-size: 12px; font-weight: 700; color: #d29922;
+  text-transform: uppercase; letter-spacing: .06em; margin-bottom: .75rem;
+}
+.s-row { display: flex; align-items: center; gap: 10px; margin-bottom: .6rem; }
+.s-row:last-child { margin-bottom: 0; }
+.s-row label { font-size: 12px; color: #6e7681; min-width: 90px; }
+.s-row input {
+  flex: 1; padding: 7px 10px; font-size: 13px;
+  border: 1px solid #30363d; border-radius: 7px;
+  font-family: inherit; background: #0d1117; color: #e6edf3; outline: none;
+}
+.s-row input:focus { border-color: #56d364; }
+.btn-save {
+  padding: 7px 16px; font-size: 12px; font-weight: 700; border-radius: 7px;
+  background: linear-gradient(135deg,#2ea043,#56d364); color: #fff; border: none; cursor: pointer; font-family: inherit;
+}
+
+/* ── STATS ── */
+.stats-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 1.25rem; }
+.stat { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 1rem; }
+.stat-num { font-size: 28px; font-weight: 800; }
+.stat-num.green { color: #56d364; }
+.stat-num.yellow { color: #d29922; }
+.stat-num.red { color: #f85149; }
+.stat-label { font-size: 12px; color: #6e7681; margin-top: 2px; }
+
+/* ── SEARCH ── */
+.search-bar {
+  width: 100%; padding: 10px 14px; font-size: 14px;
+  border: 1px solid #30363d; border-radius: 9px; margin-bottom: 1rem;
+  font-family: inherit; outline: none; background: #0d1117; color: #e6edf3; transition: .15s;
+}
+.search-bar:focus { border-color: #56d364; }
+
+/* ── REG LIST ── */
+.reg-item {
+  padding: 12px 0; border-bottom: 1px solid #21262d;
+  display: flex; align-items: center; gap: 10px;
+}
+.reg-item:last-child { border-bottom: none; }
+.reg-av {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: linear-gradient(135deg,#1a472a,#40916c);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 13px; color: #d8f3dc; flex-shrink: 0;
+}
+.reg-info { flex: 1; min-width: 0; }
+.reg-name { font-size: 14px; font-weight: 600; color: #e6edf3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.reg-sub { font-size: 12px; color: #6e7681; margin-top: 2px; }
+
+/* ── BADGES ── */
+.badge { display: inline-block; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 700; letter-spacing: .02em; }
+.badge-pending  { background: rgba(210,153,34,.12); color: #d29922; border: 1px solid rgba(210,153,34,.2); }
+.badge-approved { background: rgba(86,211,100,.10); color: #56d364;  border: 1px solid rgba(86,211,100,.2); }
+.badge-rejected { background: rgba(248,81,73,.10);  color: #f85149;  border: 1px solid rgba(248,81,73,.2); }
+
+/* ── ACTION BUTTONS ── */
+.btn-xs {
+  padding: 5px 12px; font-size: 11px; border-radius: 7px;
+  border: 1px solid #30363d; background: transparent; color: #8b949e;
+  cursor: pointer; font-family: inherit; font-weight: 600; transition: .1s;
+}
+.btn-xs:hover { background: #1c2128; color: #e6edf3; }
+.btn-xs-green { border-color: rgba(86,211,100,.3); color: #56d364; }
+.btn-xs-green:hover { background: rgba(86,211,100,.08); }
+.export-btn {
+  padding: 7px 14px; font-size: 12px; font-weight: 700; border-radius: 7px;
+  background: transparent; color: #56d364; border: 1px solid rgba(86,211,100,.3); cursor: pointer; font-family: inherit;
+}
+.export-btn:hover { background: rgba(86,211,100,.08); }
+.empty-state { text-align: center; padding: 2.5rem; color: #6e7681; font-size: 14px; }
+
+/* ── MODAL ── */
+.overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,.7); z-index: 200;
+  align-items: center; justify-content: center; padding: 1rem;
+}
+.overlay.open { display: flex; }
+.modal {
+  background: #161b22; border: 1px solid #30363d; border-radius: 16px;
+  padding: 1.5rem; width: 100%; max-width: 420px; max-height: 90vh; overflow-y: auto;
+}
+.modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+.modal-header h3 { font-size: 16px; font-weight: 700; color: #e6edf3; }
+.modal-close { background: none; border: none; font-size: 22px; cursor: pointer; color: #6e7681; line-height: 1; }
+.modal-close:hover { color: #e6edf3; }
+.d-row { display: flex; gap: 8px; padding: 7px 0; border-bottom: 1px solid #21262d; font-size: 13px; }
+.d-row:last-of-type { border-bottom: none; }
+.d-key { color: #6e7681; min-width: 110px; flex-shrink: 0; }
+.d-val { color: #e6edf3; font-weight: 600; }
+.notes-box {
+  background: #0d1117; border-radius: 8px; padding: 10px 12px;
+  font-size: 13px; color: #d29922; margin: 8px 0; line-height: 1.5;
+  border: 1px solid rgba(210,153,34,.15);
+}
+.ss-box {
+  background: #0d1117; border-radius: 8px; padding: 14px; text-align: center;
+  font-size: 12px; color: #6e7681; margin: 8px 0; border: 1px dashed #30363d;
+}
+.modal-actions { display: flex; gap: 8px; margin-top: 1rem; }
+.modal-actions button {
+  flex: 1; padding: 10px; font-size: 13px; font-weight: 700; border-radius: 9px;
+  cursor: pointer; font-family: inherit; border: 1px solid #30363d; background: transparent; transition: .1s; color: #8b949e;
+}
+.m-approve { background: linear-gradient(135deg,#2ea043,#56d364) !important; color: #fff !important; border-color: transparent !important; }
+.m-reject  { color: #f85149 !important; border-color: rgba(248,81,73,.3) !important; }
+.m-reject:hover { background: rgba(248,81,73,.08) !important; }
+.m-close:hover { background: #1c2128; color: #e6edf3; }

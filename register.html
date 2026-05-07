@@ -9,148 +9,178 @@
 </head>
 <body>
 
-  <div class="hdr">
-    <div class="icon-strip">🌙 ☪️ 📖 ✨ 🕌</div>
-    <h1>Quranic <span>Youth Camp</span></h1>
-    <p>Summer Camp Registration Portal</p>
-    <div class="hdr-badge">🗓️ Register your child today</div>
+<div class="hdr">
+  <div class="icon-strip">🌙 ☪️ 📖 ✨ 🕌</div>
+  <h1>Quranic <span>Youth Camp</span></h1>
+  <p>Summer Camp Registration Portal</p>
+  <!-- <div class="hdr-badge">🗓️ Register your child today</div> -->
+</div>
+
+<nav class="nav">
+  <a href="register.html" class="nav-btn active">📝 Register</a>
+  <!-- <a href="admin.html"    class="nav-btn">🔐 Admin</a> -->
+  <a href="checkin.html"  class="nav-btn">✅ Check-in</a>
+</nav>
+
+<div class="main">
+
+  <!-- STEP 1: Form -->
+  <div id="step1">
+    <div class="steps">
+      <div class="step-dot active"></div>
+      <div class="step-dot"></div>
+      <div class="step-dot"></div>
+    </div>
+
+    
+    <p class="sec-label">Participant details</p>
+    <div class="card">
+
+      <div class="row">
+        <div class="field">
+          <label>Participant's name <span class="req">*</span></label>
+          <input type="text" id="f-cname" placeholder="Full name"/>
+          <span class="err-msg" id="f-cname-err"></span>
+        </div>
+        <div class="field">
+          <label>Age <span class="req">*</span> <span style="color:#6e7681;font-size:10px">(14–24)</span></label>
+          <input type="number" id="f-age" placeholder="e.g. 17" min="14" max="24"/>
+          <span class="err-msg" id="f-age-err"></span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>School / College <span class="req">*</span></label>
+        <input type="text" id="f-school" placeholder="School or college name"/>
+        <span class="err-msg" id="f-school-err"></span>
+      </div>
+
+      <div class="field">
+        <label>Which Grade have you completed recently? <span style="color:#6e7681;font-weight:400">which standard have you completed?</span></label>
+        <textarea id="f-notes" placeholder="like 10th grade, 12th grade, etc."></textarea>
+      </div>
+
+    </div>
+
+    <div class="note">⚠️ All fields marked * are required. Age must be 14–24. Phone must be 10 digits.</div>
+    <br/>
+    <p class="sec-label">👨‍👩‍👧 Parent / guardian</p>
+    <div class="card">
+
+      <div class="field">
+        <label>Full name <span class="req">*</span></label>
+        <input type="text" id="f-pname" placeholder="Your full name"/>
+        <span class="err-msg" id="f-pname-err"></span>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label>Phone <span class="req">*</span></label>
+          <div class="phone-wrap">
+            <span class="phone-prefix">🇮🇳 +91</span>
+            <input type="tel" id="f-phone" placeholder="98765 43210" maxlength="10"/>
+          </div>
+          <span class="err-msg" id="f-phone-err"></span>
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input type="email" id="f-email" placeholder="optional"/>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Emergency contact <span class="req">*</span></label>
+        <div class="phone-wrap">
+          <span class="phone-prefix">🇮🇳 +91</span>
+          <input type="tel" id="f-emergency" placeholder="Different number" maxlength="10"/>
+        </div>
+        <span class="err-msg" id="f-emergency-err"></span>
+      </div>
+
+    </div>
+
+    <button class="btn btn-primary" onclick="goStep2()">Continue to payment →</button>
   </div>
 
-  <nav class="nav">
-    <a class="nav-btn active" href="register.html">📝 Register</a>
-    <a class="nav-btn" href="admin.html">🔐 Admin</a>
-    <a class="nav-btn" href="checkin.html">✅ Check-in</a>
-  </nav>
-
-  <div class="main">
-
-    <!-- STEP 1 -->
-    <div id="step1">
-      <div class="steps">
-        <div class="step-dot active" id="d1"></div>
-        <div class="step-dot" id="d2"></div>
-        <div class="step-dot" id="d3"></div>
-      </div>
-
-      <p class="sec-label">👨‍👩‍👧 Parent / Guardian</p>
-      <div class="card">
-        <div class="field">
-          <label>Full name <span class="req">*</span></label>
-          <input type="text" id="f-pname" placeholder="Your full name"/>
-        </div>
-        <div class="row">
-          <div class="field">
-            <label>Phone <span class="req">*</span></label>
-            <input type="tel" id="f-phone" placeholder="+91 XXXXX XXXXX" maxlength="13"/>
-            <span class="field-hint">+91 followed by 10 digits</span>
-          </div>
-          <div class="field">
-            <label>Email</label>
-            <input type="email" id="f-email" placeholder="optional"/>
-          </div>
-        </div>
-        <div class="field">
-          <label>Emergency contact <span class="req">*</span></label>
-          <input type="tel" id="f-emergency" placeholder="+91 XXXXX XXXXX" maxlength="13"/>
-          <span class="field-hint">Must be different from above</span>
-        </div>
-      </div>
-
-      <p class="sec-label">🧒 Child Details</p>
-      <div class="card">
-        <div class="row">
-          <div class="field">
-            <label>Child's name <span class="req">*</span></label>
-            <input type="text" id="f-cname" placeholder="Full name"/>
-          </div>
-          <div class="field">
-            <label>Age <span class="req">*</span></label>
-            <input type="number" id="f-age" placeholder="14–24" min="14" max="24"/>
-            <span class="field-hint">Must be between 14 and 24</span>
-          </div>
-        </div>
-        <div class="field">
-          <label>School / College <span class="req">*</span></label>
-          <input type="text" id="f-school" placeholder="Name of school or college"/>
-        </div>
-        <div class="field">
-          <label>Special notes <span class="field-opt">(allergies, conditions, diet…)</span></label>
-          <textarea id="f-notes" placeholder="Leave blank if nothing to mention"></textarea>
-        </div>
-      </div>
-
-      <div class="note">⚠️ All fields marked * are required before you can proceed.</div>
-      <br/>
-      <button class="btn btn-primary" onclick="goStep2()">Continue to payment →</button>
+  <!-- STEP 2: Payment -->
+  <div id="step2" style="display:none">
+    <div class="steps">
+      <div class="step-dot done"></div>
+      <div class="step-dot active"></div>
+      <div class="step-dot"></div>
     </div>
 
-    <!-- STEP 2 -->
-    <div id="step2" style="display:none">
-      <div class="steps">
-        <div class="step-dot done"></div>
-        <div class="step-dot active"></div>
-        <div class="step-dot"></div>
-      </div>
-      <div class="card">
-        <div class="card-title">💳 Pay Registration Fee</div>
-        <p class="pay-sub">Scan the QR or pay to the UPI ID below, then upload your screenshot.</p>
-        <div class="payment-glow">
-          <div class="qr-wrap">
-            <svg width="100" height="100" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="4" y="4" width="34" height="34" rx="4" stroke="#2d6a4f" stroke-width="2.5" fill="none"/>
-              <rect x="13" y="13" width="16" height="16" rx="1.5" fill="#2d6a4f"/>
-              <rect x="52" y="4" width="34" height="34" rx="4" stroke="#2d6a4f" stroke-width="2.5" fill="none"/>
-              <rect x="61" y="13" width="16" height="16" rx="1.5" fill="#2d6a4f"/>
-              <rect x="4" y="52" width="34" height="34" rx="4" stroke="#2d6a4f" stroke-width="2.5" fill="none"/>
-              <rect x="13" y="61" width="16" height="16" rx="1.5" fill="#2d6a4f"/>
-              <rect x="52" y="52" width="8" height="8" fill="#2d6a4f" rx="1"/>
-              <rect x="64" y="52" width="8" height="8" fill="#2d6a4f" rx="1"/>
-              <rect x="76" y="52" width="8" height="8" fill="#2d6a4f" rx="1"/>
-              <rect x="52" y="64" width="8" height="8" fill="#2d6a4f" rx="1"/>
-              <rect x="76" y="64" width="8" height="8" fill="#2d6a4f" rx="1"/>
-              <rect x="52" y="76" width="8" height="8" fill="#2d6a4f" rx="1"/>
-              <rect x="64" y="76" width="8" height="8" fill="#2d6a4f" rx="1"/>
-              <rect x="76" y="76" width="8" height="8" fill="#2d6a4f" rx="1"/>
-            </svg>
-          </div>
-          <div class="amount-pill" id="disp-amount">₹—</div>
-          <div class="upi-id" id="disp-upi">Loading…</div>
-          <div class="upi-sub">PhonePe · GPay · Paytm · Any UPI app</div>
+    <div class="card">
+      <div class="card-title">💳 Pay registration fee</div>
+      <p style="font-size:13px;color:#6e7681;margin-bottom:1rem">Scan the QR or pay to the UPI ID below, then upload your screenshot.</p>
+
+      <div class="payment-glow">
+        <!-- <div class="qr-wrap">
+          <svg width="100" height="100" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="4" width="34" height="34" rx="4" stroke="#2d6a4f" stroke-width="2.5" fill="none"/>
+            <rect x="13" y="13" width="16" height="16" rx="1.5" fill="#2d6a4f"/>
+            <rect x="52" y="4" width="34" height="34" rx="4" stroke="#2d6a4f" stroke-width="2.5" fill="none"/>
+            <rect x="61" y="13" width="16" height="16" rx="1.5" fill="#2d6a4f"/>
+            <rect x="4" y="52" width="34" height="34" rx="4" stroke="#2d6a4f" stroke-width="2.5" fill="none"/>
+            <rect x="13" y="61" width="16" height="16" rx="1.5" fill="#2d6a4f"/>
+            <rect x="52" y="52" width="8" height="8" fill="#2d6a4f" rx="1"/>
+            <rect x="64" y="52" width="8" height="8" fill="#2d6a4f" rx="1"/>
+            <rect x="76" y="52" width="8" height="8" fill="#2d6a4f" rx="1"/>
+            <rect x="52" y="64" width="8" height="8" fill="#2d6a4f" rx="1"/>
+            <rect x="76" y="64" width="8" height="8" fill="#2d6a4f" rx="1"/>
+            <rect x="52" y="76" width="8" height="8" fill="#2d6a4f" rx="1"/>
+            <rect x="64" y="76" width="8" height="8" fill="#2d6a4f" rx="1"/>
+            <rect x="76" y="76" width="8" height="8" fill="#2d6a4f" rx="1"/>
+          </svg> -->
+          
+<div class="qr-wrap">
+  <img id="qr-img"
+       src=""
+       alt="QR Code"
+       style="width:180px;height:180px;object-fit:contain;border-radius:16px;display:none"/>
+</div>
+
+
         </div>
-        <div class="upload-zone" id="upload-zone" onclick="document.getElementById('ss-input').click()">
-          <div style="font-size:28px">📤</div>
-          <p id="upload-label">Tap to upload payment screenshot</p>
-          <input type="file" id="ss-input" accept="image/*" style="display:none"/>
-        </div>
+        <div class="amount-pill" id="disp-amount">₹—</div>
+        <div class="upi-id" id="disp-upi">Loading…</div>
+        <div class="upi-sub">PhonePe · GPay · Paytm · Any UPI app</div>
       </div>
-      <button class="btn btn-primary" id="submit-btn" disabled>🎉 Submit Registration</button>
-      <button class="btn btn-outline" onclick="backStep1()">← Back</button>
-      <p class="pay-note">WhatsApp group invite sent after payment verification ✓</p>
+
+      <div class="upload-zone" id="upload-zone" onclick="document.getElementById('ss-input').click()">
+        <div style="font-size:28px">📤</div>
+        <p id="upload-label">Tap to upload payment screenshot</p>
+        <input type="file" id="ss-input" accept="image/*" style="display:none" onchange="handleFile(this)"/>
+      </div>
     </div>
 
-    <!-- STEP 3 -->
-    <div id="step3" style="display:none">
-      <div class="steps">
-        <div class="step-dot done"></div>
-        <div class="step-dot done"></div>
-        <div class="step-dot done"></div>
-      </div>
-      <div class="success-box">
-        <div class="confetti-bar">🎊 🌙 📖 🌙 🎊</div>
-        <div class="success-emoji">✅</div>
-        <h3>You're all set!</h3>
-        <p>Jazak Allahu Khayran! Registration for <strong id="conf-child"></strong> has been submitted.<br/><br/>
-        Our team will verify your payment and send a WhatsApp invite to <strong id="conf-phone"></strong>. Allow a few hours, in sha Allah.</p>
-      </div>
-      <br/>
-      <button class="btn btn-outline" onclick="resetForm()">➕ Register another child</button>
-    </div>
-
+    <button class="btn btn-primary" id="submit-btn" onclick="submitReg()" disabled>🎉 Submit registration</button>
+    <button class="btn btn-outline" onclick="backStep1()">← Back</button>
+    <p style="font-size:12px;color:#6e7681;text-align:center;margin-top:.75rem">WhatsApp invite sent after payment verification ✓</p>
   </div>
 
-  <div class="toast" id="toast"></div>
+  <!-- STEP 3: Success -->
+  <div id="step3" style="display:none">
+    <div class="steps">
+      <div class="step-dot done"></div>
+      <div class="step-dot done"></div>
+      <div class="step-dot done"></div>
+    </div>
+    <div class="success-box">
+      <div class="confetti-bar">🎊 🌙 📖 🌙 🎊</div>
+      <div class="success-emoji">✅</div>
+      <h3>You're all set!</h3>
+      <p>Jazak Allahu Khayran! Registration for <strong id="conf-child" style="color:#56d364"></strong> has been submitted.<br/><br/>
+      Our team will verify your payment and send a WhatsApp invite to <strong id="conf-phone" style="color:#56d364"></strong>. Allow a few hours, in sha Allah.</p>
+    </div>
+    <br/>
+    <button class="btn btn-outline" onclick="resetForm()">➕ Register another participant</button>
+  </div>
 
-  <script type="module" src="js/firebase.js"></script>
-  <script type="module" src="js/form.js"></script>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module" src="js/form.js"></script>
 </body>
 </html>

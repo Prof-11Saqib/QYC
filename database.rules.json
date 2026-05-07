@@ -1,0 +1,18 @@
+{
+  "rules": {
+
+    "registrations": {
+      // Anyone can submit a registration (public write)
+      // Only authenticated admin can read all registrations
+      ".read":  "auth !== null",
+      ".write": true
+    },
+
+    "settings": {
+      // Anyone can read (form needs UPI/amount)
+      // Only authenticated admin can change settings
+      ".read":  true,
+      ".write": "auth !== null"
+    }
+  }
+}
