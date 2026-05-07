@@ -122,16 +122,21 @@ window.saveSettings = async function () {
 function startLiveListener() {
   if (unsubRegs) { unsubRegs(); unsubRegs = null; }
   unsubRegs = onValue(ref(db, "registrations"), snap => {
-    console.log("🔥 snapshot received, count:", snap.numChildren());
-    allRegs = [];
-    if (snap.exists()) {
-      snap.forEach(child => allRegs.push({ fbKey: child.key, ...child.val() }));
-      allRegs.sort((a, b) => b.ts - a.ts);
-    }
-    updateStats();
-    const q = el("search-inp")?.value || "";
-    renderRegs(q ? filterList(q) : allRegs);
-  });
+  console.log("🔥 snapshot received, count:", snap.val());
+  allRegs = [];
+  if (snap.exists()) {
+    // SAFER: Convert the snapshot object directly into an array
+    const data = snap.val();
+    allRegs = Object.entries(data).map(([key, value]) => ({
+      fbKey: key,
+      ...value
+    }));
+    allRegs.sort((a, b) => b.ts - a.ts);
+  }
+  updateStats();
+  const q = el("search-inp")?.value || "";
+  renderRegs(q ? filterList(q) : allRegs);
+});
 }
 
 // ── Stats ─────────────────────────────────────
