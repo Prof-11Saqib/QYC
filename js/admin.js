@@ -247,3 +247,16 @@ window.exportCSV = function () {
   a.click();
   showToast("📥 CSV downloaded!");
 };
+async function loadSettingsIntoForm() {
+  try {
+    const snap = await get(ref(db, "settings"));
+    if (snap.exists()) {
+      const s = snap.val();
+      if (el("set-upi"))    el("set-upi").value    = s.upi    || "";
+      if (el("set-amount")) el("set-amount").value = s.amount || "";
+      if (el("set-walink")) el("set-walink").value = s.walink || "";
+    }
+  } catch(e) {
+    console.error("Failed to load settings:", e);
+  }
+}
