@@ -193,6 +193,8 @@ async function loadSettings() {
       if (qrImg && s.qrURL) {
         qrImg.src = s.qrURL;
         qrImg.style.display = "block";
+        const placeholder = document.getElementById("qr-placeholder");
+        if (placeholder) placeholder.style.display = "none";
       }
     }
 

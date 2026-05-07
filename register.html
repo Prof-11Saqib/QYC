@@ -115,41 +115,24 @@
       <p style="font-size:13px;color:#6e7681;margin-bottom:1rem">Scan the QR or pay to the UPI ID below, then upload your screenshot.</p>
 
       <div class="payment-glow">
-        <!-- <div class="qr-wrap">
-          <svg width="100" height="100" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="4" y="4" width="34" height="34" rx="4" stroke="#2d6a4f" stroke-width="2.5" fill="none"/>
-            <rect x="13" y="13" width="16" height="16" rx="1.5" fill="#2d6a4f"/>
-            <rect x="52" y="4" width="34" height="34" rx="4" stroke="#2d6a4f" stroke-width="2.5" fill="none"/>
-            <rect x="61" y="13" width="16" height="16" rx="1.5" fill="#2d6a4f"/>
-            <rect x="4" y="52" width="34" height="34" rx="4" stroke="#2d6a4f" stroke-width="2.5" fill="none"/>
-            <rect x="13" y="61" width="16" height="16" rx="1.5" fill="#2d6a4f"/>
-            <rect x="52" y="52" width="8" height="8" fill="#2d6a4f" rx="1"/>
-            <rect x="64" y="52" width="8" height="8" fill="#2d6a4f" rx="1"/>
-            <rect x="76" y="52" width="8" height="8" fill="#2d6a4f" rx="1"/>
-            <rect x="52" y="64" width="8" height="8" fill="#2d6a4f" rx="1"/>
-            <rect x="76" y="64" width="8" height="8" fill="#2d6a4f" rx="1"/>
-            <rect x="52" y="76" width="8" height="8" fill="#2d6a4f" rx="1"/>
-            <rect x="64" y="76" width="8" height="8" fill="#2d6a4f" rx="1"/>
-            <rect x="76" y="76" width="8" height="8" fill="#2d6a4f" rx="1"/>
-          </svg> -->
-          
-<div class="qr-wrap">
-  <img id="qr-img"
-       src=""
-       alt="QR Code"
-       style="width:180px;height:180px;object-fit:contain;border-radius:16px;display:none"/>
-</div>
-
-
+        <div class="qr-wrap">
+          <img id="qr-img"
+               src=""
+               alt="QR Code"
+               style="width:180px;height:180px;object-fit:contain;border-radius:16px;display:none"/>
+          <div id="qr-placeholder" style="width:180px;height:180px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#6e7681;border:1px dashed #444;border-radius:16px">
+            No QR uploaded
+          </div>
         </div>
         <div class="amount-pill" id="disp-amount">₹—</div>
         <div class="upi-id" id="disp-upi">Loading…</div>
         <div class="upi-sub">PhonePe · GPay · Paytm · Any UPI app</div>
-      </div>
+     </div>
 
       <div class="upload-zone" id="upload-zone" onclick="document.getElementById('ss-input').click()">
         <div style="font-size:28px">📤</div>
         <p id="upload-label">Tap to upload payment screenshot</p>
+        <p style="font-size:11px;color:#6e7681;margin-top:4px">Upload screenshot to enable submit</p>
         <input type="file" id="ss-input" accept="image/*" style="display:none" onchange="handleFile(this)"/>
       </div>
     </div>
