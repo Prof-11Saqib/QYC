@@ -120,7 +120,9 @@ window.saveSettings = async function () {
 
 // ── Live registrations listener ───────────────
 function startLiveListener() {
+  if (unsubRegs) { unsubRegs(); unsubRegs = null; }
   unsubRegs = onValue(ref(db, "registrations"), snap => {
+    console.log("🔥 snapshot received, count:", snap.size);
     allRegs = [];
     if (snap.exists()) {
       snap.forEach(child => allRegs.push({ fbKey: child.key, ...child.val() }));
