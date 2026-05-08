@@ -173,11 +173,21 @@ function renderRegs(list) {
         <div class="reg-name">${r.cname || "Unknown"}, ${r.age || "—"}</div>
         <div class="reg-sub">${r.pname || "Unknown"} · ${r.phone || "—"} · ${ago(r.ts)}</div>
       </div>
+              <div style="font-size:11px;color:#6e7681;margin-top:2px">
+          ID: <strong>${r.uid}</strong>
+        </div>
+                <div class="reg-sub">
+          ${r.pname || "Unknown"} · ${r.phone || "—"} · ${ago(r.ts)}
+        </div>
+
       <span class="badge badge-${r.status}">${r.status}</span>
-      <div style="display:flex;gap:5px">
+      <div style="display:flex;gap:5px";align-items:center">
         <button class="btn-xs" onclick="openModal('${r.fbKey}')">View</button>
         ${r.status === "pending"
           ? `<button class="btn-xs btn-xs-green" onclick="approveReg('${r.fbKey}')">Approve</button>`
+          : ""}
+                  ${r.status === "approved"
+          ? `<button class="btn-xs btn-xs" onclick="sendWhatsApp('${r.fbKey}')">💬 Message</button>`
           : ""}
       </div>
     </div>`).join("");
@@ -198,10 +208,12 @@ window.filterRegs = q => renderRegs(q ? filterList(q) : allRegs);
 window.approveReg = async function (key) {
   const r = allRegs.find(x => x.fbKey === key);
   if (!r) return;
-  await update(ref(db, "registrations/" + key), { status: "approved" });
-  const snap = await get(ref(db, "settings"));
-  const lnk  = snap.exists() ? (snap.val().walink || "#") : "#";
-  showToast("✅ Approved! Send WhatsApp invite to " + r.phone, 4000);
+
+  await update(ref(db, "registrations/" + key), {
+    status: "approved"
+  });
+
+  showToast("✅ Approved");
   closeModal();
 };
 
@@ -212,6 +224,32 @@ window.rejectReg = async function (key) {
   await update(ref(db, "registrations/" + key), { status: "rejected" });
   showToast("🗑️ Registration rejected");
   closeModal();
+};
+
+window.sendWhatsApp = function (key) {
+  const r = allRegs.find(x => x.fbKey === key);
+  if (!r) return;
+
+  const snap = r; // already loaded locally
+
+  const message =
+`Assalamu Alaikum ${snap.pname},
+
+Your registration for *${snap.cname}* has been APPROVED ✅
+
+🆔 Registration ID: ${snap.uid}
+
+Please save this ID for future reference.
+
+Join updates group:
+${document.getElementById("set-walink")?.value || ""}
+
+JazakAllah Khair`;
+
+  const url =
+`https://wa.me/${snap.phone.replace("+", "")}?text=${encodeURIComponent(message)}`;
+
+  window.open(url, "_blank");
 };
 
 // ── Modal ─────────────────────────────────────
