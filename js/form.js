@@ -181,7 +181,6 @@ window.submitReg = async function () {
 
     // Save to Firebase Realtime Database
     await push(ref(db, "registrations"), reg);
-    await set(ref(db, `registrations_by_uid/${uid}`), true);
 
     // Show success
     el("conf-child").textContent = reg.cname;
