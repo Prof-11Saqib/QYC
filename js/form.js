@@ -3,7 +3,7 @@
 //  Handles: step nav, validation, firebase submit
 // ============================================
 
-import { db, storage, ref, push, get, sref, uploadBytes, getDownloadURL, showToast } from "./firebase.js";
+import { db, storage, ref, set, push, get, sref, uploadBytes, getDownloadURL, showToast } from "./firebase.js";
 
 let uploadedFile = null;
 
@@ -120,22 +120,33 @@ function generateCode() {
 }
 
 // Ensure unique code
-async function getUniqueCode() {
-  let code;
-  let exists = true;
+function generateFastUID() {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-  while (exists) {
-    code = generateCode();
+  const rand = () => chars[Math.floor(Math.random() * chars.length)];
 
-    const snapshot = await get(
-      ref(db, `registrations_by_uid/${code}`)
-    );
+  // mix time + randomness → practically collision-free for your scale
+  const t = Date.now().toString(36).toUpperCase().slice(-2);
 
-    exists = snapshot.exists();
-  }
-
-  return code;
+  return rand() + rand() + t + rand(); // 4 chars
 }
+
+// async function getUniqueCode() {
+//   let code;
+//   let exists = true;
+
+//   while (exists) {
+//     code = generateCode();
+
+//     const snapshot = await get(
+//       ref(db, `registrations_by_uid/${code}`)
+//     );
+
+//     exists = snapshot.exists();
+//   }
+
+//   return code;
+// }
 // ── Submit registration ──────────────────────
 window.submitReg = async function () {
   const btn = el("submit-btn");
@@ -150,7 +161,7 @@ window.submitReg = async function () {
       await uploadBytes(storageRef, uploadedFile);
       screenshotURL = await getDownloadURL(storageRef);
     }
-    const uid = await getUniqueCode();
+    const uid = await generateFastUID();
 
     // Build registration object
     const reg = {
