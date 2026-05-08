@@ -109,7 +109,33 @@ window.handleFile = function (input) {
     el("submit-btn").disabled = false;
   }
 };
+// Generate random 4-char alphanumeric code
+function generateCode() {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let code = "";
+  for (let i = 0; i < 4; i++) {
+    code += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return code;
+}
 
+// Ensure unique code
+async function getUniqueCode() {
+  let code;
+  let exists = true;
+
+  while (exists) {
+    code = generateCode();
+
+    const snapshot = await get(
+      ref(db, `registrations_by_uid/${code}`)
+    );
+
+    exists = snapshot.exists();
+  }
+
+  return code;
+}
 // ── Submit registration ──────────────────────
 window.submitReg = async function () {
   const btn = el("submit-btn");
@@ -124,9 +150,11 @@ window.submitReg = async function () {
       await uploadBytes(storageRef, uploadedFile);
       screenshotURL = await getDownloadURL(storageRef);
     }
+    const uid = await getUniqueCode();
 
     // Build registration object
     const reg = {
+      uid,
       pname:         g("f-pname"),
       phone:         "+91" + g("f-phone").replace(/\D/g, ""),  // store with country code
       email:         g("f-email"),
@@ -142,10 +170,12 @@ window.submitReg = async function () {
 
     // Save to Firebase Realtime Database
     await push(ref(db, "registrations"), reg);
+    await set(ref(db, `registrations_by_uid/${uid}`), true);
 
     // Show success
     el("conf-child").textContent = reg.cname;
     el("conf-phone").textContent = reg.phone;
+    el("conf-uid").textContent = reg.uid;
     el("step2").style.display = "none";
     el("step3").style.display = "block";
 
@@ -193,8 +223,6 @@ async function loadSettings() {
       if (qrImg && s.qrURL) {
         qrImg.src = s.qrURL;
         qrImg.style.display = "block";
-        const placeholder = document.getElementById("qr-placeholder");
-        if (placeholder) placeholder.style.display = "none";
       }
     }
 
