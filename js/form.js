@@ -215,29 +215,40 @@ async function loadSettings() {
   try {
     const snap = await get(ref(db, "settings"));
 
-    if (snap.exists()) {
+    if (!snap.exists()) return;
 
-      const s = snap.val();
+    const s = snap.val();
+    const upiEl         = el("disp-upi");
+    const amountEl      = el("disp-amount");
+    const qrImg         = el("qr-img");
+    const qrPlaceholder = el("qr-placeholder");
+    
 
-      const upiEl    = el("disp-upi");
-      const amountEl = el("disp-amount");
-      const qrImg    = el("qr-img");
+    // Update UPI ID
+    if (upiEl) {
+      upiEl.textContent = "UPI ID: " + (s.upi || "—");
+    }
 
-      if (upiEl)
-        upiEl.textContent = "UPI ID: " + (s.upi || "—");
+    // Update amount
+    if (amountEl) {
+      amountEl.textContent = s.amount ? "₹" + s.amount : "₹—";
+    }
 
-      if (amountEl)
-        amountEl.textContent = s.amount ? "₹" + s.amount : "₹—";
-
-      // Show QR image
-      if (qrImg && s.qrURL) {
+    // Update QR image
+    if (qrImg && qrPlaceholder) {
+      if (s.qrURL) {
         qrImg.src = s.qrURL;
         qrImg.style.display = "block";
+        qrPlaceholder.style.display = "none"; // hide placeholder
+        
+      } else {
+        qrImg.style.display = "none";
+        qrPlaceholder.style.display = "flex";  // show placeholder
       }
     }
 
-  } catch(e) {
-    console.error(e);
+  } catch (e) {
+    console.error("Error loading settings:", e);
   }
 }
 

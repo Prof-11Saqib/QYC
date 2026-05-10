@@ -135,3 +135,16 @@
 .m-reject  { color: #f85149 !important; border-color: rgba(248,81,73,.3) !important; }
 .m-reject:hover { background: rgba(248,81,73,.08) !important; }
 .m-close:hover { background: #1c2128; color: #e6edf3; }
+
+.reg-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.reg-uid {
+  font-size: 11px;
+  color: #6e7681;
+  letter-spacing: 1px;
+  margin-top: 2px;
+}

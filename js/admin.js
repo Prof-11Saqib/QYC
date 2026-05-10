@@ -167,30 +167,44 @@ function renderRegs(list) {
     return;
   }
   container.innerHTML = list.map(r => `
-    <div class="reg-item">
-      <div class="reg-av">${initials(r.cname)}</div>
-      <div class="reg-info">
-        <div class="reg-name">${r.cname || "Unknown"}, ${r.age || "—"}</div>
-        <div class="reg-sub">${r.pname || "Unknown"} · ${r.phone || "—"} · ${ago(r.ts)}</div>
-      </div>
-              <div style="font-size:11px;color:#6e7681;margin-top:2px">
-          ID: <strong>${r.uid}</strong>
-        </div>
-                <div class="reg-sub">
-          ${r.pname || "Unknown"} · ${r.phone || "—"} · ${ago(r.ts)}
-        </div>
+  <div class="reg-item">
 
-      <span class="badge badge-${r.status}">${r.status}</span>
-      <div style="display:flex;gap:5px";align-items:center">
-        <button class="btn-xs" onclick="openModal('${r.fbKey}')">View</button>
-        ${r.status === "pending"
-          ? `<button class="btn-xs btn-xs-green" onclick="approveReg('${r.fbKey}')">Approve</button>`
-          : ""}
-                  ${r.status === "approved"
-          ? `<button class="btn-xs btn-xs" onclick="sendWhatsApp('${r.fbKey}')">💬 Message</button>`
-          : ""}
+    <div class="reg-av">${initials(r.cname)}</div>
+
+    <div class="reg-info">
+
+      <div class="reg-name">
+        ${r.cname || "Unknown"}, ${r.age || "—"}
       </div>
-    </div>`).join("");
+
+      <div class="reg-uid">
+        ID: <strong>${r.uid}</strong>
+      </div>
+
+      <div class="reg-sub">
+        ${r.pname || "Unknown"} · ${r.phone || "—"} · ${ago(r.ts)}
+      </div>
+
+    </div>
+
+    <span class="badge badge-${r.status}">${r.status}</span>
+
+    <div style="display:flex;gap:5px;align-items:center">
+
+      <button class="btn-xs" onclick="openModal('${r.fbKey}')">View</button>
+
+      ${r.status === "pending"
+        ? `<button class="btn-xs btn-xs-green" onclick="approveReg('${r.fbKey}')">Approve</button>`
+        : ""}
+
+      ${r.status === "approved"
+        ? `<button class="btn-xs btn-xs" onclick="sendWhatsApp('${r.fbKey}')">💬 Message</button>`
+        : ""}
+
+    </div>
+
+  </div>
+`).join("");
 }
 
 // ── Search ────────────────────────────────────
@@ -235,16 +249,19 @@ window.sendWhatsApp = function (key) {
   const message =
 `Assalamu Alaikum ${snap.pname},
 
-Your registration for *${snap.cname}* has been APPROVED ✅
+Alhamdulillah! Your registration for *${snap.cname}* has been successfully confirmed 🌟
 
-🆔 Registration ID: ${snap.uid}
+🆔 Registration ID: *${snap.uid}*
 
 Please save this ID for future reference.
 
-Join updates group:
+We are excited to have you as a part of this journey and looking forward to meeting you, InShaAllah 🤍
+
+Kindly join the updates group:
 ${document.getElementById("set-walink")?.value || ""}
 
-JazakAllah Khair`;
+Regards,  
+*SIO Mysuru`;
 
   const url =
 `https://wa.me/${snap.phone.replace("+", "")}?text=${encodeURIComponent(message)}`;
